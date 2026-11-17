@@ -1,0 +1,16 @@
+# Hide all icons (including magnifier and app icons)
+show_icons = false
+allow_images=true
+image_size=20
+# Set the prompt text (label before the input)
+prompt = Search apps...
+
+# Set the width and height of the window
+width = 600
+height = 200
+
+# Set the number of lines to show
+lines = 6
+
+# Set the font
+font = "Fira Sans 12"

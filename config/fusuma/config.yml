@@ -1,0 +1,20 @@
+swipe:
+  3:
+    left:
+      threshold: 1.5
+      command: hyprctl dispatch workspace e+1
+    right:
+      threshold: 1.5
+      command: hyprctl dispatch workspace e-1
+    up:
+      threshold: 1.5
+      command: hyprctl dispatch hyprexpo:expo toggle
+    down:
+      threshold: 1.5
+      command: hyprctl dispatch hyprexpo:expo toggle
+
+threshold:
+  swipe: 0.5
+
+interval:
+  swipe: 4

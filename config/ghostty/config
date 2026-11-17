@@ -1,0 +1,12 @@
+# Ghostty configuration file
+
+background = 000000
+# foreground = ffffff
+cursor-color = ffff00
+background-opacity = 0.75
+theme = Chester 
+# transparency = 0.8
+# background = "/path/to/your/background.jpg"
+#foreground_color = "#FFFFFF"
+# cursor_color = "#FF00FF"
+

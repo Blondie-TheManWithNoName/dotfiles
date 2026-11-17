@@ -1,0 +1,675 @@
+// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
+$fg-color: #{"@theme_fg_color"};
+$bg-color: #{"@theme_bg_color"};
+
+// ── macOS dark-mode palette ──
+// frosted dark bar (wallpaper blurs through), soft light-gray labels instead
+// of stark white, and light macOS blues for selection
+$bar-bg: rgba(#1C1C1E, 0.55);
+$text: rgba(#EBEBF0, 0.92); // primary label — light gray, not pure white
+$text-dim: rgba(#EBEBF5, 0.55); // Apple secondaryLabel (dark)
+$icon: rgba(#EBEBF0, 0.85);
+$hover: rgba(255, 255, 255, 0.1);
+$press: rgba(255, 255, 255, 0.18);
+$accent: #7EB0EF; // soft light blue — menu/launcher/calendar selection
+$accent-strong: #64A5F5; // brighter blue — links, highlights
+$separator: rgba(255, 255, 255, 0.14);
+
+// ── menu chrome (Apple menu dropdown / popovers / launcher) ──
+// these float above the dark bar as their own frosted light-gray surface,
+// like a macOS light-mode menu — separate palette from the dark bar above
+$menu-bg: rgba(#E6E4E5, 0.82);
+$menu-text: rgba(#1D1D1F, 0.85);
+$menu-text-dim: rgba(#3C3C43, 0.55);
+$menu-hover: rgba(#000000, 0.07);
+$menu-press: rgba(#000000, 0.12);
+$menu-border: rgba(#000000, 0.1);
+$menu-separator: rgba(#3C3C43, 0.14);
+
+// default font on toplevels only — children inherit it, but rules with an
+// explicit font-family (panels, .app-name, .clock) can override
+window {
+    font-family: 'JetBrainsMono Nerd Font';
+}
+
+window.Bar {
+    background: $bar-bg;
+    color: $text;
+    font-size: 13px;
+    transition: margin-top 200ms ease, opacity 200ms ease;
+    margin-top: 0px;
+    opacity: 1;
+
+    .bar-inner {
+        background: transparent;
+        padding: 6px 8px;
+    }
+
+    // menu-bar text in a sans font, like SF Pro on macOS
+    .app-name,
+    .clock {
+        font-family: 'SF Pro Text', 'Adwaita Sans', 'Roboto', sans-serif;
+    }
+
+    .app-name {
+        font-weight: 600;
+        margin-left: 6px;
+    }
+
+    .clock {
+        margin: 0 8px 0 6px;
+        padding: 0 6px;
+    }
+
+    .battery-button {
+        padding: 0 4px;
+    }
+
+    // ── center: workspaces (desktops), ordered, widening with open apps ──
+    .workspaces {
+        margin: 0 8px;
+        padding: 3px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .group-restart {
+        padding: 3px;
+        border-radius: 6px;
+        color: $text-dim;
+
+        &:hover {
+            color: $text;
+        }
+    }
+
+    .workspace-pill {
+        padding: 5px 12px;
+        margin: 0;
+        border-radius: 12px;
+        background: transparent;
+        background-image: none;
+        border: none;
+        box-shadow: none;
+        transition: background 150ms ease;
+
+        &:hover {
+            background: $hover;
+        }
+
+        &.active {
+            background: $press;
+        }
+
+        &.active:hover {
+            background: $press;
+        }
+
+        // segmented-control look: only the outer edge of the first/last pill
+        // keeps the full squircle radius — every side facing a neighboring
+        // pill (both sides of a mid pill, inner side of first/last) rounds off less
+        &.first {
+            border-radius: 12px 8px 8px 12px;
+        }
+
+        &.last {
+            border-radius: 8px 12px 12px 8px;
+        }
+
+        &.mid {
+            border-radius: 8px;
+        }
+    }
+
+    .workspace-dot {
+        min-width: 3px;
+        min-height: 3px;
+        border-radius: 1px;
+        background: rgba(#EBEBF5, 0.4);
+    }
+
+    .workspace-pill.active .workspace-dot {
+        background: #FFFFFF;
+    }
+
+    .workspace-apps {
+        margin-top: 1px;
+    }
+
+    .workspace-app-icon {
+        margin: 0;
+    }
+
+    .apple-logo {
+        padding: 0 10px;
+    }
+
+    .apple-logo-img {
+        color: $icon;
+        -gtk-icon-style: symbolic;
+    }
+
+    .status-icon {
+        padding: 0 9px;
+    }
+
+    .status-icon-img {
+        color: $icon;
+        -gtk-icon-style: symbolic;
+    }
+
+    .systray {
+        margin-right: 2px;
+
+        .tray-item {
+            padding: 0 7px;
+
+            icon {
+                color: $icon;
+                -gtk-icon-style: symbolic;
+                // full-color third-party icons can't be recolored — dim them
+                // slightly so they sit quieter on the bar
+                opacity: 0.85;
+            }
+        }
+    }
+
+    .battery-widget {
+        font-size: 11px;
+        font-weight: 600;
+        padding-top: 11px;
+        padding-bottom: 11px;
+        margin: 0 6px;
+    }
+
+
+    .outer-box {
+        // subtle track — the light-gray fill on top carries the charge level
+        background-color: rgba(#EBEBF0, 0.28);
+        border-radius: 5px;
+    }
+
+    .inner-box {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        padding-left: 4px;
+    }
+
+    button {
+        background: transparent;
+        background-image: none;
+        border: none;
+        box-shadow: none;
+        border-radius: 6px;
+        margin: 0;
+        // explicit color: the system GTK theme is Adwaita *light*, whose
+        // button style would otherwise put near-black text on our dark bar
+        color: $text;
+        text-shadow: none;
+
+        &:hover {
+            background: $hover;
+        }
+
+        &:active {
+            background: $press;
+        }
+    }
+}
+
+// ── Apple menu dropdown ──
+menu.apple-menu {
+    background: $menu-bg;
+    color: $menu-text;
+    border-radius: 8px;
+    padding: 5px;
+    font-family: 'SF Pro Text', 'Adwaita Sans', 'Roboto', sans-serif;
+    font-size: 13px;
+
+    menuitem {
+        padding: 5px 12px;
+        border-radius: 5px;
+
+        &:hover {
+            background: $accent-strong;
+            color: #FFFFFF;
+        }
+    }
+
+    separator {
+        background: $menu-separator;
+        margin: 4px 8px;
+    }
+}
+
+.HoverZone {
+    background-color: transparent;
+}
+
+// ── macOS-style popovers (wifi / bluetooth / sound / battery / calendar) ──
+window.Popover {
+    background: transparent;
+
+    .popover-panel {
+        background: $menu-bg;
+        border: 1px solid $menu-border;
+        border-radius: 12px;
+        padding: 10px;
+        color: $menu-text;
+        font-family: 'SF Pro Text', 'Adwaita Sans', 'Roboto', sans-serif;
+        font-size: 13px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    .panel-title {
+        font-weight: 700;
+    }
+
+    .panel-subtitle {
+        font-weight: 600;
+        font-size: 11px;
+        color: $menu-text-dim;
+        margin-top: 6px;
+    }
+
+    .panel-row {
+        padding: 5px 8px;
+        border-radius: 6px;
+        background: transparent;
+        background-image: none;
+        border: none;
+        box-shadow: none;
+        color: $menu-text;
+        text-shadow: none;
+
+        &:hover {
+            background: $menu-hover;
+        }
+    }
+
+    .panel-footer {
+        margin-top: 4px;
+    }
+
+    .panel-row-icon,
+    .accent,
+    .dim {
+        font-family: 'JetBrainsMono Nerd Font';
+    }
+
+    .panel-row-icon-btn {
+        font-family: 'JetBrainsMono Nerd Font';
+        font-size: 15px;
+        background: transparent;
+        background-image: none;
+        border: none;
+        box-shadow: none;
+        border-radius: 6px;
+        padding: 2px 6px;
+        color: $menu-text;
+        text-shadow: none;
+
+        &:hover {
+            background: $menu-hover;
+        }
+    }
+
+    .accent {
+        color: $accent-strong;
+    }
+
+    // Mirror / Extend / Off segmented control (widget/panels/DisplayPanel)
+    .seg-group {
+        margin-top: 2px;
+    }
+
+    .seg-btn {
+        padding: 4px 6px;
+        font-size: 12px;
+        background: $menu-hover;
+        background-image: none;
+        border: none;
+        box-shadow: none;
+        color: $menu-text;
+        text-shadow: none;
+
+        &:hover {
+            background: $menu-press;
+        }
+
+        // only the outer edges of the group round off, so the three buttons
+        // read as one control
+        &.first {
+            border-radius: 6px 0 0 6px;
+        }
+
+        &.mid {
+            border-radius: 0;
+        }
+
+        &.last {
+            border-radius: 0 6px 6px 0;
+        }
+
+        &.active {
+            background: $accent-strong;
+            color: #FFFFFF;
+        }
+    }
+
+    .dim {
+        color: rgba(#3C3C43, 0.45);
+    }
+
+    .dim-text {
+        color: $menu-text-dim;
+        font-size: 12px;
+    }
+
+    .error {
+        color: #FF3B30;
+        font-size: 11px;
+    }
+
+    .battery-percent {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    entry {
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 6px;
+        padding: 5px 8px;
+        color: $menu-text;
+        caret-color: #1D1D1F;
+    }
+
+    // GtkScale CSS nodes: scale > trough > highlight, knob node is "slider"
+    scale {
+        padding: 0;
+
+        trough {
+            background: rgba(0, 0, 0, 0.14);
+            border-radius: 3px;
+            min-height: 4px;
+            border: none;
+        }
+
+        highlight {
+            background: $accent-strong;
+            border-radius: 3px;
+            border: none;
+        }
+
+        slider {
+            background: #FFFFFF;
+            border-radius: 50%;
+            min-width: 16px;
+            min-height: 16px;
+            margin: -7px;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    scrolledwindow,
+    viewport {
+        border: none;
+        background: transparent;
+    }
+
+    switch {
+        background: rgba(120, 120, 128, 0.32);
+        border-radius: 999px;
+        min-width: 40px;
+        min-height: 22px;
+        border: none;
+
+        slider {
+            background: #FFFFFF;
+            border-radius: 999px;
+            min-width: 18px;
+            min-height: 18px;
+            margin: 2px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        &:checked {
+            background: #34C759;
+        }
+    }
+
+    .panel-calendar {
+        background: transparent;
+        color: $menu-text;
+        border: none;
+        padding: 4px;
+
+        &:selected {
+            background: $accent;
+            color: #FFFFFF;
+            border-radius: 6px;
+        }
+
+        header {
+            background: transparent;
+            color: $menu-text;
+        }
+
+        highlight {
+            color: $accent-strong;
+        }
+    }
+}
+
+// ── Raycast-style app launcher (Cmd+Space) ──
+window.Launcher {
+    background: transparent;
+
+    .launcher-panel {
+        background: $menu-bg;
+        border: 1px solid $menu-border;
+        border-radius: 14px;
+        color: $menu-text;
+        font-family: 'SF Pro Text', 'Adwaita Sans', 'Roboto', sans-serif;
+        font-size: 13px;
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .launcher-drag-handle {
+        min-height: 14px;
+    }
+
+    .launcher-entry {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        font-size: 20px;
+        padding: 4px 18px 14px 18px;
+        color: $menu-text;
+        caret-color: #1D1D1F;
+        border-bottom: 1px solid $menu-border;
+    }
+
+    // GTK3's placeholder-text has no reliable CSS styling hook, so the hint
+    // is a manually-overlaid label matching the entry's own padding/font.
+    .launcher-entry-placeholder-box {
+        padding: 4px 18px 14px 18px;
+    }
+
+    .launcher-entry-placeholder {
+        font-size: 20px;
+        color: rgba(#3C3C43, 0.35);
+    }
+
+    .launcher-list {
+        padding: 8px;
+    }
+
+    .launcher-row {
+        background: transparent;
+        background-image: none;
+        border: none;
+        box-shadow: none;
+        border-radius: 8px;
+        padding: 8px 10px;
+        margin: 1px 0;
+        color: $menu-text;
+        text-shadow: none;
+
+        &:hover {
+            background: $menu-hover;
+        }
+    }
+
+    .launcher-row-selected {
+        background: $accent;
+        color: #FFFFFF;
+
+        &:hover {
+            background: $accent;
+        }
+    }
+
+    .launcher-row-name {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .launcher-row-thumb {
+        font-size: 32px;
+        border-radius: 6px;
+    }
+
+    .launcher-row-delete {
+        background: transparent;
+        background-image: none;
+        border: none;
+        box-shadow: none;
+        border-radius: 6px;
+        padding: 3px 7px;
+        color: rgba(#3C3C43, 0.5);
+        text-shadow: none;
+        font-size: 11px;
+
+        &:hover {
+            background: $menu-press;
+            color: $menu-text;
+        }
+    }
+
+    scrolledwindow,
+    viewport {
+        border: none;
+        background: transparent;
+    }
+}
+
+// ── macOS-style Mission Control (3-finger swipe up) ──
+window.MissionControl {
+    background: rgba(#000000, 0.32);
+}
+
+.mc-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+    transition: background 150ms ease, border-color 150ms ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.14);
+    }
+
+    &.active {
+        border-color: $accent-strong;
+        box-shadow: 0 0 0 2px rgba(#64A5F5, 0.5), 0 14px 34px rgba(0, 0, 0, 0.35);
+    }
+}
+
+// each window gets its own tile, positioned/sized to match its real
+// on-screen layout (see tileRectFor in MissionControl.tsx) — a thin gap
+// and subtle background separate tiles so a multi-window workspace reads
+// as a tiled mini-desktop, not one solid image
+.mc-win-tile {
+    padding: 1px;
+}
+
+.mc-win-thumb {
+    // background-image set inline per-tile (see MissionControl.tsx)
+    border-radius: 4px;
+}
+
+.mc-win-thumb-loading {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+}
+
+.mc-app-icon {
+    margin: 0;
+}
+
+.mc-card-label {
+    color: $text-dim;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+// ── macOS-style OSD bezel (volume / brightness / kbd backlight) ──
+window.OSD {
+    background: transparent;
+}
+
+.osd-box {
+    min-width: 172px;
+    min-height: 172px;
+    padding: 28px 30px;
+    border-radius: 26px;
+    background: rgba(#1D1D1F, 0.6);
+    color: rgba(#EBEBF0, 0.85);
+
+    icon {
+        font-size: 80px;
+    }
+
+    levelbar {
+        margin-top: 22px;
+
+        trough {
+            min-height: 7px;
+            border-radius: 4px;
+            border: none;
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        block.filled {
+            min-height: 7px;
+            border-radius: 4px;
+            border: none;
+            background: #E5E5EA;
+        }
+
+        block.empty {
+            border: none;
+            background: transparent;
+        }
+    }
+}
+
+// ── group-switch toast (brief "Programming" / "Design" popup) ──
+window.GroupToast {
+    background: transparent;
+}
+
+.group-toast-box {
+    margin-top: 54px; // clears the bar height, sits just below it
+    padding: 6px 16px;
+    border-radius: 10px;
+    background: rgba(#1D1D1F, 0.75);
+    color: rgba(#EBEBF0, 0.92);
+    font-family: 'SF Pro Text', 'Adwaita Sans', 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}

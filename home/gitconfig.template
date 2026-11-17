@@ -1,0 +1,12 @@
+; Copied to ~/.gitconfig by install.sh, which fills in your own name and
+; email. Identity is deliberately NOT stored in this repo.
+
+[user]
+	name = __GIT_NAME__
+	email = __GIT_EMAIL__
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

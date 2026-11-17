@@ -1,0 +1,32 @@
+# ─── Generated / built artifacts ────────────────────────────────────
+# These accounted for 170M of the 171M in ~/.config/ags. All are
+# reproducible; install.sh regenerates them.
+
+# GObject-introspection typings for AGS (80M).
+# Regenerate: cd ~/.config/ags && ags types -d .
+config/ags/@girs/
+
+config/ags/node_modules/
+config/ags/bin/
+
+# CMake output for the hyprexpo fork (90M).
+# Rebuild: see "Rebuilding hyprexpo" in README.md
+config/ags/helpers/hyprexpo-fork/build/
+
+# Compiled wlroots screencopy helper
+config/ags/helpers/toplevel-capture/capture
+
+# Compiled Hyprland plugins are tied to an exact Hyprland ABI, so a
+# committed .so would silently crash on a version mismatch. Always build
+# from source.
+*.so
+
+# ─── Local state, never shared ──────────────────────────────────────
+# Qt file-dialog history and GTK bookmarks record recently-opened paths.
+config/QtProject.conf
+config/gtk-3.0/bookmarks
+config/gtk-2.0/gtkfilechooser.ini
+
+# Real git identity lives in ~/.gitconfig, generated from
+# home/gitconfig.template by install.sh.
+home/gitconfig

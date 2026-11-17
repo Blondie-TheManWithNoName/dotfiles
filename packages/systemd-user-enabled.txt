@@ -1,0 +1,6 @@
+pipewire.socket
+pipewire-pulse.socket
+pipewire-pulse.service
+wireplumber.service
+gnome-keyring-daemon.socket
+p11-kit-server.socket
