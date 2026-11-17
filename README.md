@@ -16,6 +16,46 @@ not Waybar. Mission Control is a patched build of the `hyprexpo` plugin.
 
 ---
 
+## Screenshots
+
+The menu bar: Apple menu, focused-app name, workspace pills with live app
+icons, tray, and status widgets. Everything is AGS — there is no Waybar here.
+
+![Menu bar and desktop](docs/screenshots/01-desktop-bar.webp)
+
+`Cmd+Space` opens a Raycast-style launcher, frosted over the wallpaper by a
+Hyprland `layerrule`.
+
+![Launcher](docs/screenshots/02-launcher.webp)
+
+Clicking a status icon opens a popover. These aren't `Gtk.Popover` — a GTK3
+layer-shell bar clips them to its own 28px height, so each is a fullscreen
+transparent layer with its content positioned by computed margins.
+
+| | |
+|---|---|
+| ![Calendar](docs/screenshots/03-panel-calendar.webp) | ![Sound](docs/screenshots/04-panel-sound.webp) |
+| ![Battery](docs/screenshots/05-panel-battery.webp) | ![Wi-Fi](docs/screenshots/07-panel-wifi.webp) |
+
+The battery panel surfaces the TLP charge cap from
+[`system/etc/tlp.d/10-battery.conf`](system/etc/tlp.d/10-battery.conf).
+Network names and Bluetooth device names are pixelated in these shots.
+
+![Bluetooth](docs/screenshots/06-panel-bluetooth.webp)
+
+Media and brightness keys route through [`scripts/osd.sh`](scripts/osd.sh),
+which applies the change and then draws a macOS-style overlay — volume,
+screen brightness, night shift, and keyboard backlight:
+
+| Volume | Brightness | Night shift | Keyboard |
+|---|---|---|---|
+| ![Volume](docs/screenshots/08-osd-volume.webp) | ![Brightness](docs/screenshots/09-osd-brightness.webp) | ![Night shift](docs/screenshots/10-osd-nightlight.webp) | ![Keyboard backlight](docs/screenshots/11-osd-keyboard.webp) |
+
+> Mission Control isn't pictured — the hyprexpo plugin doesn't currently load.
+> See [Troubleshooting](#troubleshooting).
+
+---
+
 ## Install
 
 ```sh
